@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parish Admin Login</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--navy);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(184,147,74,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(184,147,74,0.08) 0%, transparent 50%);
+    }
+    .login-card {
+      background: var(--white);
+      border-radius: 14px;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+      overflow: hidden;
+      margin: 1rem;
+    }
+    .login-header {
+      background: var(--navy);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 3px solid var(--gold);
+    }
+    .login-cross {
+      font-size: 2rem; color: var(--gold);
+      display: block; margin-bottom: 0.75rem;
+    }
+    .login-title {
+      font-family: var(--ff-display);
+      font-size: 1.5rem; color: var(--gold-pale);
+      font-weight: 600; margin-bottom: 0.2rem;
+    }
+    .login-sub {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+    .login-body { padding: 2rem; }
+
+    /* Reuse adm- classes from admin.css */
+    #loginStatus {
+      text-align: center;
+      font-size: 0.88rem; font-style: italic;
+      color: var(--text-light); min-height: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    #loginStatus.error { color: var(--red-liturgy); }
+    #loginStatus.success { color: green; }
+
+    .login-footer {
+      text-align: center; padding: 0 2rem 1.5rem;
+      font-size: 0.82rem; color: var(--text-light);
+    }
+    .login-footer a {
+      color: var(--gold); cursor: pointer;
+      font-family: var(--ff-caps); font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* Panel switching */
+    .panel { display: none; }
+    .panel.active { display: block; }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <div class="login-header">
+      <span class="login-cross">&#10015;</span>
+      <div class="login-title">Parish Admin</div>
+      <div class="login-sub">Askeaton &amp; Ballysteen Parish CMS</div>
+    </div>
+
+    <div class="login-body">
+
+      <!-- LOGIN PANEL -->
+      <div id="panelLogin" class="panel active">
+        <div class="adm-field">
+          <label class="adm-label" for="loginEmail">Email Address</label>
+          <input class="adm-input" type="email" id="loginEmail"
+                 autocomplete="email" placeholder="admin@parish.ie">
+        </div>
+        <div class="adm-field">
+          <label class="adm-label" for="loginPassword">Password</label>
+          <input class="adm-input" type="password" id="loginPassword"
+                 autocomplete="current-password" placeholder="••••••••">
+        </div>
+        <label class="adm-check-row" style="margin-bottom:1.2rem;">
+          <input type="checkbox" id="loginRemember"> Keep me signed in
+        </label>
+        <p id="loginStatus"></p>
+        <button class="adm-btn-primary" id="loginBtn">Sign In</button>
+      </div>
+
+      <!-- FORGOT PASSWORD PANEL -->
+      <div id="panelForgot" class="panel">
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:1.2rem;">
+          Enter your admin email and we'll send a password reset link.
+        </p>
+        <div class="adm-field">
+          <label class="adm-label" for="resetEmail">Email Address</label>
+          <input class="adm-input" type="email" id="resetEmail" placeholder="admin@parish.ie">
+        </div>
+        <p id="resetStatus"></p>
+        <button class="adm-btn-primary" id="resetBtn">Send Reset Link</button>
+        <button class="adm-btn-ghost" id="backBtn" style="margin-top:0.5rem;">&#8592; Back to Login</button>
+      </div>
+
+    </div>
+
+    <div class="login-footer">
+      <span id="forgotLink"><a id="showForgot">Forgot password?</a></span>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp, getApps }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword,
+             sendPasswordResetEmail, onAuthStateChanged,
+             browserLocalPersistence, browserSessionPersistence,
+             setPersistence }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // ── paste your Firebase config here ──────────────────────────
+    const FIREBASE_CONFIG = {
+      apiKey:            "YOUR_API_KEY",
+      authDomain:        "YOUR_PROJECT.firebaseapp.com",
+      projectId:         "YOUR_PROJECT_ID",
+      storageBucket:     "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId:             "YOUR_APP_ID"
+    };
+    // ─────────────────────────────────────────────────────────────
+
+    const app  = getApps().length ? getApps()[0] : initializeApp(FIREBASE_CONFIG);
+    const auth = getAuth(app);
+
+    // If already logged in, go straight to the site
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        const dest = new URLSearchParams(location.search).get('next') || 'index.html';
+        location.href = dest;
+      }
+    });
+
+    // ── UI helpers ────────────────────────────────────────────────
+    const show = id => document.querySelectorAll('.panel').forEach(p => {
+      p.classList.toggle('active', p.id === id);
+    });
+    const setStatus = (id, msg, type='') => {
+      const el = document.getElementById(id);
+      el.textContent = msg; el.className = type;
+    };
+
+    const ERRORS = {
+      'auth/invalid-email':      'Invalid email address.',
+      'auth/user-not-found':     'No account found with that email.',
+      'auth/wrong-password':     'Incorrect password.',
+      'auth/invalid-credential': 'Incorrect email or password.',
+      'auth/too-many-requests':  'Too many attempts — please wait a few minutes.',
+      'auth/network-request-failed': 'Network error. Check your connection.',
+    };
+
+    // ── Login ─────────────────────────────────────────────────────
+    async function doLogin() {
+      const email    = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const remember = document.getElementById('loginRemember').checked;
+      if (!email || !password) {
+        setStatus('loginStatus', 'Please enter your email and password.', 'error'); return;
+      }
+      const btn = document.getElementById('loginBtn');
+      btn.textContent = 'Signing in…'; btn.disabled = true;
+      setStatus('loginStatus', '');
+      try {
+        await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
+        await signInWithEmailAndPassword(auth, email, password);
+        setStatus('loginStatus', 'Signed in! Redirecting…', 'success');
+        // onAuthStateChanged will redirect
+      } catch(e) {
+        btn.textContent = 'Sign In'; btn.disabled = false;
+        setStatus('loginStatus', ERRORS[e.code] || 'Sign-in failed. Please try again.', 'error');
+      }
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', doLogin);
+    document.getElementById('loginPassword').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    // ── Forgot password ───────────────────────────────────────────
+    document.getElementById('showForgot').addEventListener('click', () => show('panelForgot'));
+    document.getElementById('backBtn').addEventListener('click', () => show('panelLogin'));
+
+    document.getElementById('resetBtn').addEventListener('click', async () => {
+      const email = document.getElementById('resetEmail').value.trim();
+      if (!email) { setStatus('resetStatus', 'Please enter your email.', 'error'); return; }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        setStatus('resetStatus', 'Reset link sent! Check your inbox.', 'success');
+      } catch(e) {
+        setStatus('resetStatus', ERRORS[e.code] || 'Could not send reset email.', 'error');
+      }
+    });
+  </script>
+
+</body>
+</html>
