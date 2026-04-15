@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parish Admin Login</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: #1C2951;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(184,147,74,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(184,147,74,0.08) 0%, transparent 50%);
+      font-family: 'EB Garamond', Georgia, serif;
+    }
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+      overflow: hidden;
+      margin: 1rem;
+    }
+    .card-header {
+      background: #1C2951;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 3px solid #B8934A;
+    }
+    .card-cross { font-size: 2rem; color: #B8934A; display: block; margin-bottom: 0.75rem; }
+    .card-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5rem; color: #EDD99A; font-weight: 600; margin-bottom: 0.2rem; }
+    .card-sub   { font-size: 0.82rem; color: rgba(255,255,255,0.5); font-style: italic; }
+    .card-body  { padding: 2rem; }
+
+    .field       { margin-bottom: 1.1rem; }
+    .field label {
+      display: block; font-family: 'Cinzel', serif;
+      font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: #6B5F4A;
+      margin-bottom: 0.4rem;
+    }
+    .field input[type="email"],
+    .field input[type="password"] {
+      width: 100%; padding: 0.7rem 0.9rem;
+      border: 1px solid #C8B89A; border-radius: 6px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem; color: #1A1A1A;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .field input:focus {
+      outline: none; border-color: #1C2951;
+      box-shadow: 0 0 0 3px rgba(28,41,81,0.1);
+    }
+
+    .check-row {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.88rem; color: #3A3020;
+      cursor: pointer; margin-bottom: 1.2rem;
+    }
+
+    .btn-primary {
+      width: 100%; padding: 0.85rem;
+      background: #1C2951; color: #EDD99A;
+      border: none; border-radius: 6px; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.72rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      transition: background 0.2s; margin-bottom: 0.6rem;
+    }
+    .btn-primary:hover:not(:disabled) { background: #2C3E6B; }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-ghost {
+      width: 100%; padding: 0.6rem;
+      background: transparent; color: #6B5F4A;
+      border: 1px solid #C8B89A; border-radius: 6px;
+      cursor: pointer; font-family: 'Cinzel', serif;
+      font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: #1C2951; color: #1C2951; }
+
+    #status {
+      font-size: 0.88rem; font-style: italic;
+      min-height: 1.4rem; margin-bottom: 0.75rem;
+      text-align: center; color: #6B5F4A;
+    }
+    #status.err { color: #8B1A1A; }
+    #status.ok  { color: #1a5c1a; }
+
+    #statusReset {
+      font-size: 0.88rem; font-style: italic;
+      min-height: 1.4rem; margin-bottom: 0.75rem;
+      text-align: center; color: #6B5F4A;
+    }
+    #statusReset.err { color: #8B1A1A; }
+    #statusReset.ok  { color: #1a5c1a; }
+
+    .card-footer {
+      text-align: center; padding: 0 2rem 1.5rem;
+    }
+    .link-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #B8934A; padding: 0;
+    }
+    .link-btn:hover { color: #1C2951; }
+
+    .panel { display: none; }
+    .panel.on { display: block; }
+
+    .spinner {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(237,217,154,0.3);
+      border-top-color: #EDD99A; border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+
+  <!-- Firebase compat SDK (no ES modules — works on all browsers and GitHub Pages) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-cross">&#10015;</span>
+    <div class="card-title">Parish Admin</div>
+    <div class="card-sub">Askeaton &amp; Ballysteen Parish CMS</div>
+  </div>
+
+  <div class="card-body">
+
+    <!-- LOGIN PANEL -->
+    <div id="panelLogin" class="panel on">
+      <div class="field">
+        <label for="inEmail">Email Address</label>
+        <input type="email" id="inEmail" autocomplete="email" placeholder="admin@parish.ie">
+      </div>
+      <div class="field">
+        <label for="inPass">Password</label>
+        <input type="password" id="inPass" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <label class="check-row">
+        <input type="checkbox" id="chkRemember"> Keep me signed in
+      </label>
+      <p id="status"></p>
+      <button class="btn-primary" id="btnLogin">Sign In</button>
+    </div>
+
+    <!-- FORGOT PASSWORD PANEL -->
+    <div id="panelForgot" class="panel">
+      <p style="font-size:0.9rem;color:#3A3020;margin-bottom:1.2rem;">
+        Enter your admin email and we will send a password reset link.
+      </p>
+      <div class="field">
+        <label for="inReset">Email Address</label>
+        <input type="email" id="inReset" placeholder="admin@parish.ie">
+      </div>
+      <p id="statusReset"></p>
+      <button class="btn-primary" id="btnReset">Send Reset Link</button>
+      <button class="btn-ghost" id="btnBack" style="margin-top:0.5rem;">&#8592; Back to Login</button>
+    </div>
+
+  </div>
+
+  <div class="card-footer">
+    <button class="link-btn" id="btnForgot">Forgot password?</button>
+  </div>
+</div>
+
+<script>
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  //  PASTE YOUR FIREBASE CONFIG VALUES BELOW
+  //  (from Firebase Console → Project Settings → Your apps)
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  var firebaseConfig = {
+    apiKey:            "YOUR_API_KEY",
+    authDomain:        "YOUR_PROJECT.firebaseapp.com",
+    projectId:         "YOUR_PROJECT_ID",
+    storageBucket:     "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId:             "YOUR_APP_ID"
+  };
+  // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  firebase.initializeApp(firebaseConfig);
+  var auth = firebase.auth();
+
+  // Already logged in? Go straight to the site
+  auth.onAuthStateChanged(function(user) {
+    if (user) {
+      var next = new URLSearchParams(location.search).get('next') || 'index.html';
+      window.location.href = next;
+    }
+  });
+
+  // ── Panel switching ───────────────────────────────────────
+  function showPanel(id) {
+    document.getElementById('panelLogin').className  = 'panel' + (id === 'panelLogin'  ? ' on' : '');
+    document.getElementById('panelForgot').className = 'panel' + (id === 'panelForgot' ? ' on' : '');
+    document.getElementById('status').textContent = '';
+  }
+
+  function setStatus(elId, msg, type) {
+    var el = document.getElementById(elId);
+    el.textContent = msg;
+    el.className = type || '';
+  }
+
+  var ERRORS = {
+    'auth/invalid-email':          'Invalid email address.',
+    'auth/user-not-found':         'No account found with that email.',
+    'auth/wrong-password':         'Incorrect password.',
+    'auth/invalid-credential':     'Incorrect email or password.',
+    'auth/too-many-requests':      'Too many attempts — please wait a few minutes.',
+    'auth/network-request-failed': 'Network error. Check your connection.',
+    'auth/user-disabled':          'This account has been disabled.'
+  };
+
+  function friendlyError(code) {
+    return ERRORS[code] || ('Error: ' + code);
+  }
+
+  // ── Login ─────────────────────────────────────────────────
+  function doLogin() {
+    var email    = document.getElementById('inEmail').value.trim();
+    var pass     = document.getElementById('inPass').value;
+    var remember = document.getElementById('chkRemember').checked;
+
+    if (!email || !pass) {
+      setStatus('status', 'Please enter your email and password.', 'err');
+      return;
+    }
+
+    var btn = document.getElementById('btnLogin');
+    btn.innerHTML = '<span class="spinner"></span>Signing in\u2026';
+    btn.disabled = true;
+    setStatus('status', '');
+
+    var persistence = remember
+      ? firebase.auth.Auth.Persistence.LOCAL
+      : firebase.auth.Auth.Persistence.SESSION;
+
+    auth.setPersistence(persistence)
+      .then(function() {
+        return auth.signInWithEmailAndPassword(email, pass);
+      })
+      .then(function() {
+        setStatus('status', 'Signed in! Redirecting\u2026', 'ok');
+        // onAuthStateChanged will handle the redirect
+      })
+      .catch(function(error) {
+        btn.textContent = 'Sign In';
+        btn.disabled = false;
+        setStatus('status', friendlyError(error.code), 'err');
+      });
+  }
+
+  document.getElementById('btnLogin').addEventListener('click', doLogin);
+  document.getElementById('inPass').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') doLogin();
+  });
+  document.getElementById('inEmail').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('inPass').focus();
+  });
+
+  // ── Forgot password ───────────────────────────────────────
+  document.getElementById('btnForgot').addEventListener('click', function() {
+    showPanel('panelForgot');
+  });
+  document.getElementById('btnBack').addEventListener('click', function() {
+    showPanel('panelLogin');
+  });
+
+  document.getElementById('btnReset').addEventListener('click', function() {
+    var email = document.getElementById('inReset').value.trim();
+    if (!email) {
+      setStatus('statusReset', 'Please enter your email address.', 'err');
+      return;
+    }
+
+    var btn = document.getElementById('btnReset');
+    btn.innerHTML = '<span class="spinner"></span>Sending\u2026';
+    btn.disabled = true;
+
+    auth.sendPasswordResetEmail(email)
+      .then(function() {
+        setStatus('statusReset', 'Reset link sent! Check your inbox.', 'ok');
+        btn.textContent = 'Send Reset Link';
+        btn.disabled = false;
+      })
+      .catch(function(error) {
+        setStatus('statusReset', friendlyError(error.code), 'err');
+        btn.textContent = 'Send Reset Link';
+        btn.disabled = false;
+      });
+  });
+</script>
+
+</body>
+</html>
