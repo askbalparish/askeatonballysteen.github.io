@@ -149,14 +149,14 @@
       from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
     // Firebase config must match admin-core.js
-    const FIREBASE_CONFIG = {
-      apiKey:            "YOUR_API_KEY",
-      authDomain:        "YOUR_PROJECT.firebaseapp.com",
-      projectId:         "YOUR_PROJECT_ID",
-      storageBucket:     "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId:             "YOUR_APP_ID"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyAyPD8doWSSKVPClFZEDIugwBQDkVQQuus",
+  authDomain: "askbalparish.firebaseapp.com",
+  projectId: "askbalparish",
+  storageBucket: "askbalparish.firebasestorage.app",
+  messagingSenderId: "155232908107",
+  appId: "1:155232908107:web:356342d57a54c4ebd0aece"
+};
     const app  = getApps().length ? getApps()[0] : initializeApp(FIREBASE_CONFIG);
     const db   = getFirestore(app);
     const auth = getAuth(app);
