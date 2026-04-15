@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Askeaton and Ballysteen Parish — Catholic parish in the Diocese of Limerick, Ireland.">
+  <title>Askeaton &amp; Ballysteen Parish | Diocese of Limerick</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/png" href="images/parish_crest.png">
+  <style>
+    /* Hero with background church image */
+    .hero {
+      position: relative;
+      min-height: 420px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://askeatonballysteen.ie/wp-content/uploads/2025/09/Church1.png');
+      background-size: cover; background-position: center top;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(12,22,50,0.72) 0%, rgba(12,22,50,0.82) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      padding: 3.5rem 1.5rem 3rem;
+      max-width: 700px; margin: 0 auto;
+    }
+    .hero-crest {
+      height: 100px; width: auto;
+      margin: 0 auto 1rem;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
+      animation: fadeInDown 0.8s ease both;
+    }
+    .quick-card-icon {
+      width: 28px; height: 28px;
+      border: 1px solid rgba(184,147,74,0.4); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 0.5rem;
+      font-family: var(--ff-caps); font-size: 0.58rem;
+      color: var(--gold-light); letter-spacing: 0.04em;
+    }
+    .sacrament-grid {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.75rem; max-width: 780px; margin: 0 auto 2rem;
+    }
+    .sacrament-item {
+      padding: 0.6rem 1.1rem;
+      border: 1px solid rgba(184,147,74,0.35); border-radius: 4px;
+      font-family: var(--ff-caps); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold-light); white-space: nowrap;
+    }
+    .btn-primary {
+      display: inline-block; padding: 0.7rem 1.4rem;
+      background: var(--navy); color: var(--gold-pale);
+      font-family: var(--ff-caps); font-size: 0.7rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border-radius: 4px; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--navy-mid); color: var(--gold-pale); }
+    .btn-outline {
+      display: inline-block; padding: 0.7rem 1.4rem;
+      border: 1px solid var(--navy); color: var(--navy);
+      font-family: var(--ff-caps); font-size: 0.7rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      border-radius: 4px; transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--navy); color: var(--gold-pale); }
+    .welcome-grid {
+      display: grid; grid-template-columns: 1fr 1.5fr;
+      gap: 2.5rem; align-items: start;
+    }
+
+    /* Special table — copied here so it works on index too */
+    .special-table { width: 100%; border-collapse: collapse; }
+    .special-table th {
+      font-family: var(--ff-caps); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--cream-dark); text-align: left;
+    }
+    .special-table td {
+      padding: 0.65rem 1rem; font-size: 0.95rem;
+      color: var(--text-mid); border-bottom: 1px solid var(--cream-dark);
+    }
+    .special-table tr:last-child td { border-bottom: none; }
+    .special-table tr:hover td { background: var(--cream); }
+    .special-table td:last-child { font-weight: 600; color: var(--navy); }
+
+    @media (max-width: 768px) {
+      .welcome-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+
+    <!-- ── HERO ─────────────────────────────────────────────────── -->
+    <section class="hero" aria-label="Parish welcome">
+      <div class="hero-bg" role="img" aria-label="St. Mary's Church, Askeaton"></div>
+      <div class="hero-content">
+        <img src="images/parish_crest.png" alt="Askeaton and Ballysteen Parish Crest" class="hero-crest" width="100" height="100">
+        <p class="hero-eyebrow">Diocese of Limerick &nbsp;&middot;&nbsp; County Limerick, Ireland</p>
+        <h1 class="hero-title">Askeaton &amp; Ballysteen<br><em>Parish</em></h1>
+        <div class="hero-divider"><span class="hero-divider-cross">&#10015;</span></div>
+        <p class="hero-tagline">Ad Jesum per Mariam &mdash; To Jesus through Mary</p>
+      </div>
+    </section>
+
+    <!-- ── QUICK INFO STRIP ──────────────────────────────────────── -->
+    <section class="quick-info" aria-label="Key parish times">
+      <div class="quick-grid">
+        <div class="quick-card">
+          <div class="quick-card-icon">&#10015;</div>
+          <div class="quick-card-label">Weekday Mass</div>
+          <div class="quick-card-value">Mon&ndash;Fri 9:30am<br><small style="font-size:0.78rem;opacity:0.75">Askeaton</small></div>
+        </div>
+        <div class="quick-card">
+          <div class="quick-card-icon">&#10015;</div>
+          <div class="quick-card-label">Sunday Mass</div>
+          <div class="quick-card-value">10:30am Askeaton<br><small style="font-size:0.78rem;opacity:0.75">9:00am Ballysteen</small></div>
+        </div>
+        <div class="quick-card">
+          <div class="quick-card-icon">&#10015;</div>
+          <div class="quick-card-label">Saturday Vigil</div>
+          <div class="quick-card-value">7:30pm<br><small style="font-size:0.78rem;opacity:0.75">Askeaton</small></div>
+        </div>
+        <div class="quick-card">
+          <div class="quick-card-icon">&#10015;</div>
+          <div class="quick-card-label">Confession</div>
+          <div class="quick-card-value">Sat 6pm &amp; 7:00&ndash;7:30pm<br><small style="font-size:0.78rem;opacity:0.75">Askeaton</small></div>
+        </div>
+        <div class="quick-card">
+          <div class="quick-card-icon">&#10015;</div>
+          <div class="quick-card-label">Adoration</div>
+          <div class="quick-card-value">Mon&ndash;Thurs 10&ndash;11am<br><small style="font-size:0.78rem;opacity:0.75">Fri&ndash;Sun 6:30&ndash;7:30pm</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CALENDAR + WELCOME ────────────────────────────────────── -->
+    <section class="section-gap" style="background: var(--parchment);">
+      <div class="container">
+        <div class="welcome-grid">
+
+          <div>
+            <div class="section-subtitle">Today in the Church</div>
+            <h2 class="section-title" style="margin-bottom: 1.25rem;">Liturgical Calendar</h2>
+            <div class="liturgy-widget" id="liturgyWidget" aria-live="polite">
+              <div class="liturgy-date" id="liturgyDate">Loading&hellip;</div>
+              <span class="liturgy-season-badge" id="liturgySeasonBadge"></span>
+              <div class="liturgy-feast" id="liturgyFeast">&mdash;</div>
+              <div class="liturgy-rank" id="liturgyRank">&mdash;</div>
+              <div class="liturgy-color-bar" id="liturgyColorBar"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-subtitle">Welcome</div>
+            <h2 class="section-title" style="margin-bottom: 0.75rem;">A Word of Welcome</h2>
+            <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+            <p style="margin-bottom: 0.85rem; color: var(--text-mid);">
+              Welcome to the parish of Askeaton and Ballysteen, a Catholic community
+              along the banks of the River Deel in County Limerick.
+              Whether you are a long-standing parishioner, newly arrived, or simply visiting,
+              we are glad you are here.
+            </p>
+            <p style="margin-bottom: 1.25rem; color: var(--text-mid);">
+              Our parish is served by <strong>St. Mary's Church</strong> in Askeaton and
+              <strong>St. Patrick's Church</strong> in Ballysteen, both within the Diocese of Limerick.
+            </p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href="masses.html" class="btn-primary">Mass Times</a>
+              <a href="masses.html#confession" class="btn-outline">Confessions</a>
+              <a href="contact.html" class="btn-outline">Contact Us</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── LATEST NEWS ────────────────────────────────────────────── -->
+    <section class="news-section" id="news" aria-labelledby="news-heading">
+      <div class="container">
+        <div class="section-subtitle">Parish News</div>
+        <h2 class="section-title" id="news-heading" style="margin-bottom: 0.4rem;">Latest from the Parish</h2>
+        <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+        <div class="news-grid" id="newsGrid" aria-live="polite">
+          <p style="color: var(--text-light); font-style: italic;">Loading&hellip;</p>
+        </div>
+        <div class="text-center" style="margin-top: 2rem;">
+          <a href="news.html" class="btn-primary">View All News</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PARISH GROUPS & DEVOTIONS ─────────────────────────────── -->
+    <section class="section-gap">
+      <div class="container">
+        <div class="section-subtitle">Groups &amp; Special Services</div>
+        <h2 class="section-title" style="margin-bottom: 1rem;">Parish Groups &amp; Devotions</h2>
+        <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+        <div class="church-card" style="max-width: 800px; margin-top: 1.5rem;">
+          <div class="church-card-body" style="padding: 0;">
+            <table class="special-table" aria-label="Parish groups and special services">
+              <thead>
+                <tr>
+                  <th>Event</th>
+                  <th>When</th>
+                  <th>Time &amp; Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Alliance of the Two Hearts</td>
+                  <td>1st Friday of the month</td>
+                  <td>9:00pm</td>
+                </tr>
+                <tr>
+                  <td>St. Joseph's Prayer Group</td>
+                  <td>1st Wednesday of the month</td>
+                  <td>8:00pm &mdash; Meeting Room</td>
+                </tr>
+                <tr>
+                  <td>Healing Mass of Padre Pio</td>
+                  <td>2nd Friday of the month</td>
+                  <td>7:30pm</td>
+                </tr>
+                <tr>
+                  <td>Youth Evening Monthly Holy Hour</td>
+                  <td>3rd Sunday of the month</td>
+                  <td>6:30 &ndash; 7:30pm</td>
+                </tr>
+                <tr>
+                  <td>Family &amp; Life Evening Monthly Mass</td>
+                  <td>4th Friday of the month</td>
+                  <td>7:30pm</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SACRAMENTS ────────────────────────────────────────────── -->
+    <section class="section-gap" style="background: var(--navy); color: var(--white);">
+      <div class="container text-center">
+        <div class="section-subtitle" style="color: var(--gold-light);">The Sacraments</div>
+        <h2 class="section-title" style="color: var(--gold-pale); margin-bottom: 0.75rem;">Celebrating the Sacraments</h2>
+        <p style="max-width: 580px; margin: 0 auto 1.5rem; color: rgba(255,255,255,0.7); font-size: 0.97rem;">
+          For Baptisms, Weddings, and Anniversaries, contact the office on
+          <strong style="color:var(--gold-light)">Wednesdays 9am&ndash;5pm</strong>
+          at <a href="tel:+35361398077" style="color:var(--gold-light)">061&ndash;398 077</a>.
+          Anniversaries may also be booked in the Sacristy of the church where Mass is to be said.
+        </p>
+        <div class="sacrament-grid">
+          <div class="sacrament-item">Baptism</div>
+          <div class="sacrament-item">Eucharist</div>
+          <div class="sacrament-item">Confirmation</div>
+          <div class="sacrament-item">Marriage</div>
+          <div class="sacrament-item">Reconciliation</div>
+          <div class="sacrament-item">Anointing of the Sick</div>
+        </div>
+        <a href="contact.html" style="display:inline-block;padding:0.7rem 1.8rem;border:1px solid var(--gold);color:var(--gold-pale);font-family:var(--ff-caps);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;">Contact the Parish Office</a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="nav.js"></script>
+  <script src="liturgy.js"></script>
+  <script type="module" src="admin-core.js"></script>
+  <script>
+    (function () {
+      const data = LiturgyCalendar.getToday();
+      const days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const d = data.date;
+      document.getElementById('liturgyDate').textContent  = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+      document.getElementById('liturgyFeast').textContent = data.feast;
+      document.getElementById('liturgyRank').textContent  = data.rank || '';
+      const badge = document.getElementById('liturgySeasonBadge');
+      badge.textContent = data.seasonName;
+      badge.className = 'liturgy-season-badge season-' + data.season;
+      const colorMap = { white:'color-bar-white', green:'color-bar-green', purple:'color-bar-purple', red:'color-bar-red' };
+      document.getElementById('liturgyColorBar').className = 'liturgy-color-bar ' + (colorMap[data.color] || 'color-bar-white');
+    })();
+
+    (function () {
+      const grid = document.getElementById('newsGrid');
+      // Try Firebase (loaded via admin-core), fallback to JSON
+      function renderNewsCards(items) {
+        if (!items.length) { grid.innerHTML = '<p>No news at present.</p>'; return; }
+        grid.innerHTML = items.slice(0,3).map(item => `
+          <article class="news-card">
+            <div class="news-card-inner">
+              <div class="news-card-category">${item.category}</div>
+              <h3 class="news-card-title">${item.title}</h3>
+              <p class="news-card-date">${new Date(item.date).toLocaleDateString('en-IE',{day:'numeric',month:'long',year:'numeric'})}</p>
+              <p class="news-card-excerpt">${item.excerpt||''}</p>
+              <a href="news.html#news-${item.id||item.docId}" class="news-card-link">Read more &rarr;</a>
+            </div>
+          </article>`).join('');
+      }
+      // Always load from JSON as reliable baseline; admin-core will augment if logged in
+      fetch('data/news.json')
+        .then(r => r.json())
+        .then(items => renderNewsCards(items.sort((a,b)=>new Date(b.date)-new Date(a.date))))
+        .catch(() => {
+          grid.innerHTML = `<article class="news-card"><div class="news-card-inner">
+            <div class="news-card-category">Parish News</div>
+            <h3 class="news-card-title">Welcome to Our New Website</h3>
+            <p class="news-card-date">2025</p>
+            <p class="news-card-excerpt">Welcome to the Askeaton and Ballysteen Parish website.</p>
+          </div></article>`;
+        });
+    })();
+  </script>
+</body>
+</html>

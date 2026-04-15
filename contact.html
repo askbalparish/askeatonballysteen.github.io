@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Askeaton and Ballysteen Parish. Phone, email, and maps for St. Mary's Askeaton and St. Patrick's Ballysteen.">
+  <title>Contact Us | Askeaton &amp; Ballysteen Parish</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/png" href="images/parish_crest.png">
+  <style>
+    .form-group { margin-bottom: 1.2rem; }
+    .form-label {
+      display: block; font-family: var(--ff-caps);
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--text-light);
+      margin-bottom: 0.4rem;
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1px solid var(--border); border-radius: 6px;
+      font-family: var(--ff-body); font-size: 1rem;
+      background: var(--white); color: var(--text-dark);
+      transition: border-color var(--transition);
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none; border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(28,41,81,0.08);
+    }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit {
+      padding: 0.85rem 2.5rem;
+      background: var(--navy); color: var(--gold-pale);
+      border: none; border-radius: 6px; cursor: pointer;
+      font-family: var(--ff-caps); font-size: 0.72rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      transition: background var(--transition);
+    }
+    .form-submit:hover { background: var(--navy-mid); }
+
+    .map-card {
+      background: var(--white); border-radius: 10px;
+      overflow: hidden; box-shadow: var(--shadow-card);
+    }
+    .map-card-header {
+      background: var(--navy); padding: 1.2rem 1.5rem;
+    }
+    .map-card-title {
+      font-family: var(--ff-display); font-size: 1.1rem;
+      font-weight: 600; color: var(--gold-pale); margin-bottom: 0.15rem;
+    }
+    .map-card-addr { font-size: 0.85rem; color: rgba(255,255,255,0.6); font-style: italic; }
+    .map-card iframe { width: 100%; height: 280px; border: none; display: block; }
+    .map-card-footer { padding: 0.85rem 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .map-link {
+      font-family: var(--ff-caps); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold);
+    }
+    .map-link:hover { color: var(--navy); }
+
+    .info-row {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      margin-bottom: 0.85rem; font-size: 0.97rem; color: var(--text-mid);
+    }
+    .info-row-label {
+      font-family: var(--ff-caps); font-size: 0.65rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); min-width: 90px; padding-top: 0.15rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+
+    <div class="page-hero">
+      <p class="hero-eyebrow" style="color: var(--gold-light);">We are here to help</p>
+      <h1 class="page-hero-title">Contact Us</h1>
+      <p class="page-hero-sub">Parish Office &mdash; Askeaton &amp; Ballysteen</p>
+    </div>
+
+    <section class="section-gap">
+      <div class="container">
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 3.5rem; align-items: start;">
+
+          <!-- Contact Form -->
+          <div>
+            <div class="section-subtitle">Get in Touch</div>
+            <h2 class="section-title" style="margin-bottom: 1rem;">Send a Message</h2>
+            <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+            <p style="margin-bottom: 1.5rem; color: var(--text-mid);">
+              Use this form to contact the Parish Office. We aim to respond within two working days.
+              For urgent matters, please phone directly.
+            </p>
+
+            <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+              <div class="form-group">
+                <label class="form-label" for="name">Your Name *</label>
+                <input class="form-input" type="text" id="name" name="name" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address *</label>
+                <input class="form-input" type="email" id="email" name="email" required autocomplete="email">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone (optional)</label>
+                <input class="form-input" type="tel" id="phone" name="phone" autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="subject">Subject</label>
+                <select class="form-select" id="subject" name="subject">
+                  <option value="">— Select a topic —</option>
+                  <option>Baptism enquiry</option>
+                  <option>Marriage enquiry</option>
+                  <option>Anniversary booking</option>
+                  <option>Funeral arrangements</option>
+                  <option>Anointing of the Sick / Home visit</option>
+                  <option>Safeguarding concern</option>
+                  <option>Newsletter notice</option>
+                  <option>General enquiry</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="message">Message *</label>
+                <textarea class="form-textarea" id="message" name="message" required></textarea>
+              </div>
+              <button type="submit" class="form-submit">Send Message</button>
+              <p id="formStatus" style="margin-top:0.75rem; font-size:0.9rem; font-style:italic; color:var(--text-light);"></p>
+            </form>
+          </div>
+
+          <!-- Contact details -->
+          <div>
+            <div class="section-subtitle">Parish Details</div>
+            <h2 class="section-title" style="margin-bottom: 1rem;">Parish Office</h2>
+            <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+
+            <div class="contact-card" style="margin-bottom: 1.5rem;">
+              <div class="contact-card-title">Fr. John Mockler</div>
+              <div class="info-row">
+                <span class="info-row-label">Mobile</span>
+                <a href="tel:+353862342242">086&ndash;234 2242</a>
+              </div>
+              <div class="info-row">
+                <span class="info-row-label">Office</span>
+                <a href="tel:+35361398077">061&ndash;398 077</a> (Wednesdays)
+              </div>
+              <div class="info-row">
+                <span class="info-row-label">Email</span>
+                <a href="mailto:easbaile@gmail.com">easbaile@gmail.com</a>
+              </div>
+              <div class="info-row">
+                <span class="info-row-label">Hours</span>
+                <span>Wednesdays only, 9:00am &ndash; 5:00pm</span>
+              </div>
+              <div class="info-row">
+                <span class="info-row-label">Baptisms &amp; Weddings</span>
+                <span>Tuesdays 9:00am &ndash; 5:00pm &mdash; <a href="tel:+35361398077">061&ndash;398 077</a></span>
+                <br><small style="color:var(--text-light); font-size:0.85rem;">(Office hours for general enquiries: Wednesdays 9am&ndash;5pm)</small>
+              </div>
+            </div>
+
+            <div class="contact-card" style="margin-bottom: 1.5rem;">
+              <div class="contact-card-title">Offertory &amp; Dues</div>
+              <div class="info-row">
+                <span class="info-row-label">Parish</span>
+                <span>The Askeaton Parish A/C</span>
+              </div>
+              <div class="info-row">
+                <span class="info-row-label">Priest</span>
+                <span>St. Mary&rsquo;s Priests Dues A/C</span>
+              </div>
+              <p style="font-size:0.88rem; color:var(--text-light); margin-top:0.25rem; font-style:italic;">Cheques payable as above.</p>
+            </div>
+
+            <div class="contact-card">
+              <div class="contact-card-title">Diocese of Limerick</div>
+              <div class="info-row">
+                <span class="info-row-label">Phone</span>
+                <a href="tel:+35361315856">061&ndash;315 856</a>
+              </div>
+              <div class="info-row">
+                <span class="info-row-label">Website</span>
+                <a href="https://www.limerickdiocese.org" target="_blank" rel="noopener">limerickdiocese.org</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Maps -->
+    <section style="background: var(--parchment); padding: 4rem 0;">
+      <div class="container">
+        <div class="section-subtitle">Find Us</div>
+        <h2 class="section-title" style="margin-bottom: 1rem;">Our Churches</h2>
+        <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; margin-top: 1.5rem;">
+
+          <!-- St Mary's — Catholic church beside the primary school -->
+          <div class="map-card">
+            <div class="map-card-header">
+              <div class="map-card-title">St. Mary's Church, Askeaton</div>
+              <div class="map-card-addr">Church Road, Askeaton, Co. Limerick</div>
+            </div>
+            <!--
+              Coordinates: 52.5965, -8.9725
+              This is the Catholic St. Mary's beside the primary school,
+              NOT the Church of Ireland St. Mary's near the Supervalu.
+            -->
+            <iframe
+              src="https://maps.google.com/maps?q=52.5965,-8.9725&hl=en&z=17&output=embed"
+              width="100%" height="280"
+              style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map: St. Mary's Catholic Church, Askeaton"
+              aria-label="Map showing St. Mary's Catholic Church beside the primary school in Askeaton">
+            </iframe>
+            <div class="map-card-footer">
+              <a href="https://maps.google.com/?q=52.5965,-8.9725" target="_blank" rel="noopener" class="map-link">Open in Google Maps &rarr;</a>
+              <a href="https://maps.apple.com/?ll=52.5965,-8.9725&q=St+Mary%27s+Catholic+Church+Askeaton" target="_blank" rel="noopener" class="map-link">Apple Maps &rarr;</a>
+            </div>
+          </div>
+
+          <!-- St. Patrick's Ballysteen -->
+          <div class="map-card">
+            <div class="map-card-header">
+              <div class="map-card-title">St. Patrick's Church, Ballysteen</div>
+              <div class="map-card-addr">Ballysteen, Co. Limerick</div>
+            </div>
+            <iframe
+              src="https://maps.google.com/maps?q=St+Patrick%27s+Church+Ballysteen+Limerick+Ireland&hl=en&z=15&output=embed"
+              width="100%" height="280"
+              style="border:0;" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Map: St. Patrick's Church, Ballysteen"
+              aria-label="Map showing St. Patrick's Church, Ballysteen, Co. Limerick">
+            </iframe>
+            <div class="map-card-footer">
+              <a href="https://maps.google.com/?q=St+Patrick%27s+Church+Ballysteen+Limerick+Ireland" target="_blank" rel="noopener" class="map-link">Open in Google Maps &rarr;</a>
+              <a href="https://maps.apple.com/?q=St+Patrick%27s+Church+Ballysteen+Limerick" target="_blank" rel="noopener" class="map-link">Apple Maps &rarr;</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="nav.js"></script>
+  <script type="module" src="admin-core.js"></script>
+  <script>
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    if (form) {
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        status.textContent = 'Sending\u2026';
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST', body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (res.ok) {
+            status.textContent = 'Thank you \u2014 your message has been sent. We will be in touch shortly.';
+            status.style.color = 'green'; form.reset();
+          } else { throw new Error(); }
+        } catch {
+          status.textContent = 'Sorry, there was a problem. Please phone or email the Parish Office directly.';
+          status.style.color = 'var(--red-liturgy)';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

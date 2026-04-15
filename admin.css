@@ -1,0 +1,445 @@
+/* ============================================================
+   PARISH CMS — ADMIN STYLES
+   admin.css  ·  Injected only for admin sessions
+   All admin UI uses .adm-* prefix to avoid conflicts
+   ============================================================ */
+
+/* ── BODY OFFSET when admin bar is present ─────────────────── */
+body.has-admin-bar {
+  padding-top: 48px !important;
+}
+
+/* ── ADMIN BAR ─────────────────────────────────────────────── */
+#adminBar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 9000;
+  background: #0d1520;
+  border-bottom: 2px solid var(--gold);
+  height: 48px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.45);
+  user-select: none;
+}
+
+.adm-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 1rem;
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.adm-bar-left {
+  display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0;
+}
+.adm-bar-logo {
+  font-family: var(--ff-caps);
+  font-size: 0.68rem; letter-spacing: 0.18em;
+  color: var(--gold-pale); text-transform: uppercase;
+}
+.adm-bar-page {
+  font-size: 0.72rem; color: rgba(255,255,255,0.35);
+  font-family: monospace; background: rgba(255,255,255,0.07);
+  padding: 0.15rem 0.5rem; border-radius: 3px;
+}
+
+.adm-bar-center {
+  display: flex; align-items: center; justify-content: center; flex: 1;
+}
+
+.adm-bar-right {
+  display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0;
+}
+
+/* Toggle switch */
+.adm-toggle-label {
+  display: flex; align-items: center; gap: 0.6rem;
+  cursor: pointer; user-select: none;
+}
+.adm-toggle-label input { display: none; }
+.adm-toggle-track {
+  width: 38px; height: 20px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px; position: relative;
+  transition: background 0.25s;
+}
+.adm-toggle-label input:checked ~ .adm-toggle-track { background: var(--gold); }
+.adm-toggle-thumb {
+  position: absolute; top: 2px; left: 2px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #fff; transition: left 0.25s;
+}
+.adm-toggle-label input:checked ~ .adm-toggle-track .adm-toggle-thumb { left: 20px; }
+.adm-toggle-text {
+  font-family: var(--ff-caps); font-size: 0.65rem;
+  letter-spacing: 0.12em; color: rgba(255,255,255,0.7);
+  text-transform: uppercase; min-width: 110px;
+}
+
+/* Toolbar buttons */
+.adm-bar-btn {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 4px;
+  font-family: var(--ff-caps); font-size: 0.62rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
+}
+.adm-bar-btn--ghost {
+  background: transparent; color: rgba(255,255,255,0.65);
+}
+.adm-bar-btn--ghost:hover { background: rgba(255,255,255,0.1); color: var(--gold-pale); }
+.adm-bar-btn--save {
+  background: var(--gold); color: var(--navy);
+  border-color: var(--gold); font-weight: 600;
+}
+.adm-bar-btn--save:hover:not(:disabled) { background: var(--gold-light); }
+.adm-bar-btn--save:disabled { opacity: 0.4; cursor: not-allowed; }
+.adm-bar-btn--discard {
+  background: transparent; color: rgba(255,255,255,0.5);
+  border-color: rgba(255,255,255,0.15);
+}
+.adm-bar-btn--discard:hover:not(:disabled) { color: #ff6b6b; border-color: #ff6b6b; }
+.adm-bar-btn--discard:disabled { opacity: 0.25; cursor: not-allowed; }
+.adm-bar-btn--logout {
+  background: transparent; color: rgba(255,255,255,0.4);
+  border-color: rgba(255,255,255,0.1); font-size: 0.6rem;
+}
+.adm-bar-btn--logout:hover { color: #ff6b6b; border-color: #ff6b6b; }
+.adm-bar-btn--danger {
+  background: #8B1A1A; color: #fff; border-color: #8B1A1A;
+}
+.adm-bar-btn--danger:hover { background: #a52020; }
+
+/* Unsaved indicator dot */
+.adm-unsaved-dot {
+  display: none;
+  position: absolute; top: 6px; right: 6px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #ff9500;
+  box-shadow: 0 0 8px #ff9500;
+  animation: admPulse 1.5s ease-in-out infinite;
+}
+@keyframes admPulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.6; transform:scale(1.25); }
+}
+
+/* Admin trigger (floating ✟ for public → admin) */
+#admTrigger {
+  position: fixed; bottom: 1.5rem; right: 1.5rem;
+  z-index: 8999;
+  width: 42px; height: 42px;
+  background: var(--navy); color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 50%; cursor: pointer;
+  font-size: 1.1rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  opacity: 0.55; transition: opacity 0.2s;
+}
+#admTrigger:hover { opacity: 1; }
+
+/* ── EDIT MODE VISUAL CUES ─────────────────────────────────── */
+body.admin-edit-mode [data-edit-attached],
+body.admin-edit-mode .adm-editable-active {
+  outline: 1.5px dashed rgba(184,147,74,0.45);
+  border-radius: 3px;
+}
+body.admin-edit-mode .adm-editable-active {
+  outline: 2px solid var(--gold);
+  background: rgba(255,248,220,0.3);
+  border-radius: 3px;
+}
+
+/* Edit buttons */
+.adm-edit-btn {
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  margin-left: 0.4rem; padding: 0.1rem 0.5rem;
+  background: var(--navy); color: var(--gold-pale);
+  border: 1px solid var(--gold);
+  border-radius: 3px; font-size: 0.65rem;
+  font-family: var(--ff-caps); letter-spacing: 0.08em;
+  cursor: pointer; vertical-align: middle;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.adm-edit-btn:hover { background: var(--navy-mid); }
+.adm-edit-btn--done { background: #2a5a2a; border-color: #4a9a4a; }
+.adm-edit-btn--done:hover { background: #1f4a1f; }
+
+/* ── AUTH MODAL ─────────────────────────────────────────────── */
+.adm-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,15,35,0.82);
+  backdrop-filter: blur(4px);
+  z-index: 9500;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  animation: admFadeIn 0.2s ease;
+}
+@keyframes admFadeIn { from { opacity:0; } to { opacity:1; } }
+
+.adm-modal {
+  background: var(--white);
+  border-radius: 12px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  overflow: hidden;
+  animation: admSlideUp 0.25s ease;
+}
+.adm-modal--wide { max-width: 680px; max-height: 90vh; overflow-y: auto; }
+@keyframes admSlideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+.adm-modal-header {
+  background: var(--navy);
+  padding: 2rem 2rem 1.5rem;
+  text-align: center;
+}
+.adm-modal-cross {
+  display: block; font-size: 1.5rem; color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.adm-modal-title {
+  font-family: var(--ff-display);
+  font-size: 1.4rem; color: var(--gold-pale);
+  font-weight: 600; margin-bottom: 0.2rem;
+}
+.adm-modal-sub {
+  font-size: 0.82rem; color: rgba(255,255,255,0.5);
+  font-style: italic;
+}
+
+.adm-panel { padding: 2rem; }
+
+.adm-field { margin-bottom: 1.1rem; }
+.adm-label {
+  display: block;
+  font-family: var(--ff-caps); font-size: 0.62rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--text-light); margin-bottom: 0.4rem;
+}
+.adm-input {
+  width: 100%; padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border); border-radius: 6px;
+  font-family: var(--ff-body); font-size: 1rem;
+  background: var(--white); color: var(--text-dark);
+  transition: border-color 0.2s;
+}
+.adm-input:focus { outline: none; border-color: var(--navy); box-shadow: 0 0 0 3px rgba(28,41,81,0.1); }
+.adm-textarea { resize: vertical; min-height: 160px; }
+
+.adm-check-row {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.88rem; color: var(--text-mid);
+  cursor: pointer; margin-bottom: 1rem;
+}
+
+.adm-error {
+  color: var(--red-liturgy); font-size: 0.88rem;
+  min-height: 1.2rem; margin-bottom: 0.75rem;
+  font-style: italic;
+}
+
+.adm-btn-primary {
+  width: 100%; padding: 0.8rem;
+  background: var(--navy); color: var(--gold-pale);
+  border: none; border-radius: 6px; cursor: pointer;
+  font-family: var(--ff-caps); font-size: 0.72rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  transition: background 0.2s; margin-bottom: 0.6rem;
+}
+.adm-btn-primary:hover:not(:disabled) { background: var(--navy-mid); }
+.adm-btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.adm-btn-ghost {
+  width: 100%; padding: 0.6rem;
+  background: transparent; color: var(--text-light);
+  border: 1px solid var(--border); border-radius: 6px;
+  cursor: pointer; font-family: var(--ff-caps);
+  font-size: 0.68rem; letter-spacing: 0.12em;
+  text-transform: uppercase; transition: all 0.2s;
+  margin-bottom: 0.4rem;
+}
+.adm-btn-ghost:hover { border-color: var(--navy); color: var(--navy); }
+
+.adm-btn-danger {
+  width: 100%; padding: 0.6rem;
+  background: var(--red-liturgy); color: #fff;
+  border: none; border-radius: 6px; cursor: pointer;
+  font-family: var(--ff-caps); font-size: 0.68rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+
+/* ── IMAGE UPLOAD ───────────────────────────────────────────── */
+.adm-upload-label {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px dashed var(--border); border-radius: 6px;
+  cursor: pointer; color: var(--text-mid); font-size: 0.9rem;
+  transition: border-color 0.2s; margin-top: 0.5rem;
+}
+.adm-upload-label:hover { border-color: var(--navy); color: var(--navy); }
+
+.adm-img-previews { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.adm-img-preview {
+  position: relative; display: inline-block;
+}
+.adm-img-remove {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px;
+  background: var(--red-liturgy); color: #fff;
+  border: none; border-radius: 50%; cursor: pointer;
+  font-size: 0.9rem; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── VERSION HISTORY SIDE PANEL ─────────────────────────────── */
+.adm-side-panel {
+  position: fixed; top: 48px; right: 0; bottom: 0;
+  width: 340px; background: var(--white);
+  box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+  z-index: 8990; display: none;
+  flex-direction: column;
+  border-left: 2px solid var(--gold);
+}
+.adm-side-header {
+  background: var(--navy); padding: 1.2rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.adm-side-header h3 {
+  font-family: var(--ff-caps); font-size: 0.75rem;
+  letter-spacing: 0.18em; color: var(--gold-pale);
+  text-transform: uppercase;
+}
+.adm-side-close {
+  background: none; border: none;
+  color: rgba(255,255,255,0.5); font-size: 1.4rem;
+  cursor: pointer; line-height: 1;
+}
+.adm-side-close:hover { color: #fff; }
+.adm-side-body {
+  flex: 1; overflow-y: auto; padding: 1rem;
+}
+
+.adm-hist-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.85rem 0; border-bottom: 1px solid var(--cream-dark);
+  gap: 0.75rem;
+}
+.adm-hist-label {
+  font-family: var(--ff-body); font-size: 0.9rem;
+  color: var(--text-dark); font-weight: 600;
+}
+.adm-hist-page {
+  font-size: 0.78rem; color: var(--text-light); font-style: italic;
+}
+.adm-hist-fields { font-size: 0.78rem; color: var(--gold); }
+
+/* ── PAGE BUILDER ───────────────────────────────────────────── */
+.adm-builder-section {
+  position: relative;
+}
+body.admin-edit-mode .adm-builder-section {
+  outline: 1px dashed rgba(184,147,74,0.3);
+  outline-offset: 2px;
+}
+body.admin-edit-mode .adm-builder-section:hover {
+  outline-color: rgba(184,147,74,0.65);
+}
+
+.adm-builder-controls {
+  position: absolute; top: 0.5rem; right: 1rem;
+  display: none;
+  gap: 0.3rem; z-index: 10;
+}
+body.admin-edit-mode .adm-builder-section:hover .adm-builder-controls,
+body.admin-edit-mode .adm-builder-section:focus-within .adm-builder-controls {
+  display: flex;
+}
+.adm-builder-ctrl {
+  padding: 0.25rem 0.5rem;
+  background: var(--navy); color: var(--gold-pale);
+  border: 1px solid var(--gold); border-radius: 3px;
+  cursor: pointer; font-size: 0.75rem;
+  transition: background 0.15s;
+}
+.adm-builder-ctrl:hover { background: var(--navy-mid); }
+.adm-builder-ctrl--del { background: var(--red-liturgy); border-color: var(--red-liturgy); }
+.adm-builder-ctrl--del:hover { background: #a52020; }
+
+.adm-add-element-bar {
+  display: none;
+  align-items: center; justify-content: center;
+  gap: 1rem; padding: 1.5rem;
+  border-top: 2px dashed var(--border);
+  margin-top: 2rem;
+  background: var(--parchment);
+}
+body.admin-edit-mode .adm-add-element-bar { display: flex; }
+
+/* ── TOAST NOTIFICATIONS ────────────────────────────────────── */
+.adm-toast {
+  position: fixed; bottom: 1.5rem; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-family: var(--ff-caps); font-size: 0.7rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  opacity: 0; transition: opacity 0.3s, transform 0.3s;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.adm-toast--show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.adm-toast--success { background: #1a4a1a; color: #90ee90; }
+.adm-toast--error   { background: var(--red-liturgy); color: #fff; }
+.adm-toast--info    { background: var(--navy); color: var(--gold-pale); }
+
+/* ── ARTICLE TYPE BADGES ────────────────────────────────────── */
+.tag-badge--critical {
+  background: var(--red-liturgy); color: #fff;
+}
+.tag-badge--event {
+  background: var(--navy); color: var(--gold-pale);
+}
+.tag-badge--booking {
+  background: #1a4a1a; color: #90ee90;
+}
+
+/* Critical update news card styling */
+.news-full-card--critical {
+  border-left: 4px solid var(--red-liturgy);
+}
+.news-full-card--booking {
+  border-left: 4px solid #2a7a2a;
+}
+.news-full-card--event {
+  border-left: 4px solid var(--navy);
+}
+
+/* Booking CTA within article */
+.adm-booking-cta {
+  display: inline-block;
+  margin-top: 1rem; padding: 0.7rem 1.8rem;
+  background: #1a4a1a; color: #c8f0c8;
+  border-radius: 6px; font-family: var(--ff-caps);
+  font-size: 0.7rem; letter-spacing: 0.15em;
+  text-transform: uppercase; transition: background 0.2s;
+}
+.adm-booking-cta:hover { background: #225a22; color: #c8f0c8; }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .adm-bar-logo { display: none; }
+  .adm-bar-page { display: none; }
+  .adm-bar-btn span { display: none; }
+  .adm-bar-right { gap: 0.3rem; }
+  .adm-bar-btn { padding: 0.3rem 0.5rem; font-size: 0.58rem; }
+  .adm-modal--wide { max-width: 100%; }
+  .adm-side-panel { width: 100%; }
+}

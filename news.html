@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Latest news and events from Askeaton and Ballysteen Parish, Diocese of Limerick.">
+  <title>Parish News | Askeaton &amp; Ballysteen Parish</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/png" href="images/parish_crest.png">
+  <style>
+    .filter-bar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      padding: 0.4rem 1rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-family: var(--ff-caps);
+      font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; cursor: pointer;
+      color: var(--text-mid); transition: all var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--navy); color: var(--gold-pale);
+      border-color: var(--navy);
+    }
+    .news-full-meta .tag-badge { background: var(--gold); color: var(--navy); }
+    .news-date-small { font-size: 0.85rem; color: var(--text-light); font-style: italic; }
+
+    /* News image */
+    .news-post-image {
+      width: 100%; max-height: 420px;
+      object-fit: cover; display: block;
+      border-radius: 6px; margin-bottom: 1.25rem;
+      border: 1px solid var(--cream-dark);
+    }
+
+    /* Editor callout */
+    .editor-note {
+      background: var(--parchment);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 3rem;
+      font-size: 0.88rem; color: var(--text-mid);
+    }
+    .editor-note summary {
+      cursor: pointer; font-family: var(--ff-caps);
+      font-size: 0.68rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .editor-note code {
+      background: var(--cream-dark);
+      padding: 0.15rem 0.4rem; border-radius: 3px;
+      font-size: 0.85rem; font-family: monospace;
+    }
+    .editor-note pre {
+      background: var(--navy); color: #e8d9b0;
+      padding: 1rem; border-radius: 6px;
+      overflow-x: auto; font-size: 0.82rem;
+      margin-top: 0.75rem; line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+
+    <div class="page-hero">
+      <p class="hero-eyebrow" style="color: var(--gold-light);">Keep Informed</p>
+      <h1 class="page-hero-title">Parish News &amp; Events</h1>
+      <p class="page-hero-sub">The latest from the Askeaton &amp; Ballysteen Parish community</p>
+    </div>
+
+    <section class="section-gap">
+      <div class="container">
+
+        <!-- How to add news (collapsible for parish admin) -->
+        <details class="editor-note">
+          <summary>Parish Administrator &mdash; How to add or update news posts</summary>
+          <div style="margin-top: 1rem;">
+            <p>News is managed through the file <code>data/news.json</code> in this website folder.
+            You do not need to edit any HTML. Simply open that file in a text editor (e.g. Notepad) and follow the format below.</p>
+            <p style="margin-top: 0.75rem;"><strong>Each post looks like this:</strong></p>
+            <pre>{
+  "id": "5",
+  "title": "Your News Headline Here",
+  "date": "2025-07-15",
+  "category": "Parish News",
+  "excerpt": "A short one-sentence summary shown on the home page.",
+  "body": "The full text of the article. Use \\n\\n for paragraph breaks.",
+  "image": "https://example.com/your-image.jpg"
+}</pre>
+            <p style="margin-top: 0.75rem;">
+              The <code>"image"</code> field is <strong>optional</strong> &mdash; simply leave it out if you have no image.<br>
+              If included, paste any direct image link (see sources below) and it will appear at the top of the post.
+            </p>
+            <p style="margin-top: 0.75rem;"><strong>Where to get an image link:</strong></p>
+            <ul style="padding-left:1.25rem; margin-top:0.4rem; line-height:2;">
+              <li><strong>Your own website / Facebook:</strong> right-click an image &rarr; &ldquo;Copy image address&rdquo;</li>
+              <li><strong>Google Drive:</strong> share the image &rarr; copy the link &rarr; change <code>/file/d/FILE_ID/view</code> to <code>/uc?id=FILE_ID</code></li>
+              <li><strong>Dropbox:</strong> share &rarr; copy link &rarr; change <code>?dl=0</code> to <code>?raw=1</code></li>
+              <li><strong>Imgur:</strong> right-click the image on the page &rarr; &ldquo;Copy image address&rdquo;</li>
+            </ul>
+            <p style="margin-top: 0.75rem;">
+              Available categories: <code>Parish News</code>, <code>Events</code>, <code>Sacraments</code>, <code>Upcoming</code>, <code>Notices</code>.<br>
+              Separate posts with commas. The most recent post (highest <code>"date"</code>) will appear first.<br>
+              To remove a post, delete its entire <code>{&hellip;}</code> block (and the comma before or after it).<br>
+              Once saved and uploaded to GitHub, changes appear on the website immediately.
+            </p>
+          </div>
+        </details>
+
+        <!-- Filter buttons -->
+        <div class="filter-bar" role="group" aria-label="Filter news by category">
+          <button class="filter-btn active" data-cat="all">All</button>
+          <button class="filter-btn" data-cat="Parish News">Parish News</button>
+          <button class="filter-btn" data-cat="Events">Events</button>
+          <button class="filter-btn" data-cat="Sacraments">Sacraments</button>
+          <button class="filter-btn" data-cat="Upcoming">Upcoming</button>
+          <button class="filter-btn" data-cat="Notices">Notices</button>
+        </div>
+
+        <!-- News list -->
+        <div id="newsList" aria-live="polite">
+          <p style="color: var(--text-light); font-style: italic;">Loading news…</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="nav.js"></script>
+  <script type="module" src="admin-core.js"></script>
+  <script type="module">
+    // Import Firebase modules (same app instance reused from admin-core)
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, orderBy }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged }
+      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // Firebase config must match admin-core.js
+    const FIREBASE_CONFIG = {
+      apiKey:            "YOUR_API_KEY",
+      authDomain:        "YOUR_PROJECT.firebaseapp.com",
+      projectId:         "YOUR_PROJECT_ID",
+      storageBucket:     "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId:             "YOUR_APP_ID"
+    };
+    const app  = getApps().length ? getApps()[0] : initializeApp(FIREBASE_CONFIG);
+    const db   = getFirestore(app);
+    const auth = getAuth(app);
+
+    let allNews = [];
+
+    // Article type -> badge class mapping
+    const TYPE_BADGE = {
+      critical: 'tag-badge--critical',
+      event:    'tag-badge--event',
+      booking:  'tag-badge--booking',
+    };
+    const TYPE_CARD = {
+      critical: 'news-full-card--critical',
+      event:    'news-full-card--event',
+      booking:  'news-full-card--booking',
+    };
+
+    function renderNews(items) {
+      const list = document.getElementById('newsList');
+      if (!items.length) {
+        list.innerHTML = '<p style="color:var(--text-light);font-style:italic;">No posts in this category yet.</p>';
+        return;
+      }
+
+      // Check if admin is logged in for edit buttons
+      const isAdmin = !!auth.currentUser;
+
+      list.innerHTML = items.map(item => {
+        const paragraphs = (item.body||'').split(/\n\n+/).map(p => `<p>${p.trim()}</p>`).join('');
+        const dateFormatted = new Date(item.date).toLocaleDateString('en-IE', { day:'numeric', month:'long', year:'numeric' });
+        const typeKey  = item.type || 'general';
+        const badgeCls = TYPE_BADGE[typeKey] || '';
+        const cardCls  = TYPE_CARD[typeKey]  || '';
+
+        // Images
+        const imagesHTML = (item.images||[]).length
+          ? item.images.map(src => `<img src="${src}" alt="${item.title}" class="news-post-image" loading="lazy" onerror="this.style.display='none'">`).join('')
+          : (item.image ? `<img src="${item.image}" alt="${item.title}" class="news-post-image" loading="lazy" onerror="this.style.display='none'">` : '');
+
+        // Booking CTA
+        const bookingHTML = (typeKey === 'booking' && item.bookingUrl)
+          ? `<a href="${item.bookingUrl}" class="adm-booking-cta" target="_blank" rel="noopener">${item.bookingLabel||'Book a Place'} &rarr;</a>`
+          : '';
+
+        // Admin edit button
+        const editBtn = isAdmin
+          ? `<button class="adm-edit-btn" onclick="window.ParishAdmin&&window.ParishAdmin.openNewsEditor(${JSON.stringify({...item,id:item.docId||item.id}).replace(/"/g,'&quot;')})" style="float:right;margin-left:1rem;">&#9998; Edit</button>`
+          : '';
+
+        return `
+          <article class="news-full-card ${cardCls}" id="news-${item.docId||item.id}">
+            <div class="news-full-body">
+              <div class="news-full-meta">
+                <span class="tag-badge ${badgeCls}">${item.category}</span>
+                <span class="news-date-small">${dateFormatted}</span>
+                ${editBtn}
+              </div>
+              <h2 class="news-full-title">${item.title}</h2>
+              ${imagesHTML}
+              <div class="news-full-text">${paragraphs}</div>
+              ${bookingHTML}
+            </div>
+            <div class="news-full-sidebar">
+              <div style="font-family:var(--ff-caps);font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;">${item.category}</div>
+              <div style="font-family:var(--ff-display);font-size:0.88rem;color:var(--text-mid);font-style:italic;">${dateFormatted}</div>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    // Load news: Firebase first, fallback to JSON
+    async function loadNewsFromFirebase() {
+      const list = document.getElementById('newsList');
+      list.innerHTML = '<p style="color:var(--text-light);font-style:italic;">Loading news…</p>';
+      try {
+        const q    = query(collection(db, 'news'), orderBy('date', 'desc'));
+        const snap = await getDocs(q);
+        let firebaseNews = [];
+        snap.forEach(d => firebaseNews.push({ ...d.data(), docId: d.id }));
+
+        if (firebaseNews.length) {
+          allNews = firebaseNews;
+          renderNews(allNews);
+          return;
+        }
+      } catch(e) { console.warn('Firebase news unavailable, using JSON.', e); }
+
+      // Fallback to local JSON
+      try {
+        const items = await fetch('data/news.json').then(r=>r.json());
+        allNews = items.sort((a,b)=>new Date(b.date)-new Date(a.date));
+        renderNews(allNews);
+      } catch(e) {
+        list.innerHTML = '<p style="color:var(--text-light);font-style:italic;">Unable to load news. Please contact the Parish Office.</p>';
+      }
+    }
+
+    // Re-render with edit buttons when auth state changes
+    onAuthStateChanged(auth, () => { if (allNews.length) renderNews(allNews); });
+
+    // Expose for admin-core to trigger reload after publish
+    window.loadNewsFromFirebase = loadNewsFromFirebase;
+
+    // Boot
+    loadNewsFromFirebase();
+
+    // Filter buttons
+    document.querySelector('.filter-bar').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      renderNews(cat === 'all' ? allNews : allNews.filter(n => n.category === cat));
+    });
+
+    // Scroll to anchor if hash present
+    window.addEventListener('load', () => {
+      if (location.hash) {
+        setTimeout(() => {
+          const el = document.querySelector(location.hash);
+          if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>

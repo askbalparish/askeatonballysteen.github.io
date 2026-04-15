@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mass times, Confession, Adoration, and parish services at Askeaton and Ballysteen Parish.">
+  <title>Mass Times | Askeaton &amp; Ballysteen Parish</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+  <link rel="icon" type="image/png" href="images/parish_crest.png">
+  <style>
+    .service-row {
+      display: flex; align-items: baseline; gap: 1rem;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .service-row:last-child { border-bottom: none; }
+    .service-row:hover { background: var(--cream); }
+    .service-day {
+      font-family: var(--ff-caps); font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-light); width: 120px; flex-shrink: 0;
+    }
+    .service-name { flex: 1; font-size: 0.97rem; color: var(--text-mid); }
+    .service-time {
+      font-family: var(--ff-display); font-size: 0.98rem;
+      font-weight: 600; color: var(--navy); white-space: nowrap;
+    }
+    .service-section-title {
+      font-family: var(--ff-caps); font-size: 0.65rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); padding: 0.65rem 1rem 0.3rem;
+      border-bottom: 1px solid var(--cream-dark);
+      background: var(--parchment);
+    }
+    .notice-box {
+      background: linear-gradient(135deg, rgba(184,147,74,0.1), rgba(184,147,74,0.04));
+      border: 1px solid var(--gold); border-radius: 8px;
+      padding: 1.1rem 1.4rem; margin-bottom: 2rem;
+      font-size: 0.95rem; color: var(--text-mid);
+    }
+    .holy-day-row {
+      display: flex; gap: 1.5rem; align-items: baseline;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--cream-dark);
+      font-size: 0.97rem;
+    }
+    .holy-day-row:last-child { border-bottom: none; }
+    .holy-day-date {
+      font-family: var(--ff-display); font-weight: 600;
+      color: var(--navy); min-width: 110px;
+    }
+    .holy-day-name { color: var(--text-mid); }
+
+    /* Facebook embed */
+    .fb-section {
+      background: var(--navy); border-radius: 10px;
+      padding: 2rem; max-width: 700px; color: var(--white);
+    }
+    .fb-section h3 {
+      font-family: var(--ff-display); font-size: 1.2rem;
+      color: var(--gold-pale); margin-bottom: 0.5rem;
+    }
+    .fb-embed-wrap {
+      margin-top: 1.25rem;
+      border-radius: 8px; overflow: hidden;
+      background: #fff;
+    }
+    /* Special services */
+    .special-table { width: 100%; border-collapse: collapse; }
+    .special-table th {
+      font-family: var(--ff-caps); font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light); padding: 0.5rem 1rem;
+      border-bottom: 1px solid var(--cream-dark); text-align: left;
+    }
+    .special-table td {
+      padding: 0.65rem 1rem; font-size: 0.95rem;
+      color: var(--text-mid); border-bottom: 1px solid var(--cream-dark);
+    }
+    .special-table tr:last-child td { border-bottom: none; }
+    .special-table tr:hover td { background: var(--cream); }
+    .special-table td:last-child { font-weight: 600; color: var(--navy); }
+  </style>
+</head>
+<body>
+
+  <div id="site-header-placeholder"></div>
+
+  <main id="main-content">
+
+    <div class="page-hero">
+      <p class="hero-eyebrow" style="color: var(--gold-light);">Askeaton &amp; Ballysteen Parish</p>
+      <h1 class="page-hero-title">Mass Times &amp; Services</h1>
+      <p class="page-hero-sub">All are welcome at the table of the Lord</p>
+    </div>
+
+    <section class="section-gap">
+      <div class="container">
+
+        <div class="notice-box">
+          <strong>Please note:</strong> Times may vary on feast days and during Holy Week. Funeral Masses are always at 11:00am. Changes are announced at Mass and on the parish newsletter.
+        </div>
+
+        <!-- Church cards -->
+        <div class="churches-grid">
+
+          <!-- St. Mary's Askeaton -->
+          <div class="church-card">
+            <div class="church-card-header">
+              <div class="church-card-title">St. Mary's Church</div>
+              <div class="church-card-location">Clounreask, Askeaton, Co. Limerick</div>
+            </div>
+            <div class="church-card-body" style="padding:0;">
+
+              <div class="service-section-title">Weekday Mass</div>
+              <div class="service-row">
+                <span class="service-day">Mon &ndash; Fri</span>
+                <span class="service-name">Morning Mass</span>
+                <span class="service-time">9:30am</span>
+              </div>
+
+		<div class="service-section-title">Sunday</div>
+
+		<div class="service-row">
+ 		 <span class="service-day">Saturday</span>
+ 		 <span class="service-name">Vigil Mass</span>
+  		 <span class="service-time">7:30pm</span>
+		</div>
+
+		<div class="service-row">
+ 		 <span class="service-day">Sunday</span>
+  		  <span class="service-name">Sunday Mass</span>
+  		  <span class="service-time">10:30am</span>
+		</div>
+
+              <div class="service-section-title">Funeral Mass</div>
+              <div class="service-row">
+                <span class="service-day">As needed</span>
+                <span class="service-name">Funeral Mass</span>
+                <span class="service-time">11:00am</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- St. Patrick's Ballysteen -->
+          <div class="church-card">
+            <div class="church-card-header">
+              <div class="church-card-title">St. Patrick's Church</div>
+              <div class="church-card-location">Ballysteen, Co. Limerick</div>
+            </div>
+            <div class="church-card-body" style="padding:0;">
+
+              <div class="service-section-title">Sunday</div>
+              <div class="service-row">
+                <span class="service-day">Sunday</span>
+                <span class="service-name">Sunday Mass</span>
+                <span class="service-time">9:00am</span>
+              </div>
+
+              <div class="service-section-title">First Friday's</div>
+              <div class="service-row">
+                <span class="service-day">First Friday's</span>
+                <span class="service-name">Evening Mass</span>
+                <span class="service-time">7:00pm</span>
+              </div>
+
+              <div class="service-section-title">Annual</div>
+              <div class="service-row">
+                <span class="service-day">August</span>
+                <span class="service-name">Cemetery Sunday (graveside Mass)</span>
+                <span class="service-time">3:00pm</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- /churches-grid -->
+
+        <!-- ── CONFESSION ──────────────────────────────────────── -->
+        <div id="confession" style="margin-top: 3.5rem;">
+          <div class="section-subtitle">Sacrament of Reconciliation</div>
+          <h2 class="section-title" style="margin-bottom: 1rem;">Confession</h2>
+          <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+          <p style="max-width: 640px; margin-bottom: 1.5rem; color: var(--text-mid);">
+            Confessions are heard at St. Mary's Church, Askeaton, every Saturday evening before the Vigil Mass, or at any time by arrangement with the priest.
+          </p>
+          <div class="church-card" style="max-width: 540px;">
+            <div class="church-card-header">
+              <div class="church-card-title">St. Mary's Church, Askeaton</div>
+            </div>
+            <div class="church-card-body" style="padding:0;">
+              <div class="service-row">
+                <span class="service-day">Saturday</span>
+                <span class="service-name">Confession</span>
+                <span class="service-time">6:00pm</span>
+              </div>
+              <div class="service-row">
+                <span class="service-day">Saturday</span>
+                <span class="service-name">Confession</span>
+                <span class="service-time">7:00 &ndash; 7:30pm</span>
+              </div>
+              <div class="service-row">
+                <span class="service-day">On request</span>
+                <span class="service-name">By arrangement with Fr. Mockler</span>
+                <span class="service-time"><a href="tel:+353862342242" style="color:var(--navy)">086&ndash;234 2242</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ADORATION ───────────────────────────────────────── -->
+        <div style="margin-top: 3.5rem;">
+          <div class="section-subtitle">Eucharistic Adoration</div>
+          <h2 class="section-title" style="margin-bottom: 1rem;">Adoration of the Blessed Sacrament</h2>
+          <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+          <p style="max-width: 640px; margin-bottom: 1.5rem; color: var(--text-mid);">
+            Adoration at St. Mary's follows the 9:30am Mass daily, except when there is a funeral. At St. Patrick's, Ballysteen, Adoration is held on Tuesday evenings.
+          </p>
+          <div class="churches-grid">
+            <div class="church-card">
+              <div class="church-card-header">
+                <div class="church-card-title">St. Mary's Church, Askeaton</div>
+              </div>
+              <div class="church-card-body" style="padding:0;">
+                <div class="service-row">
+                  <span class="service-day">Mon &ndash; Thurs</span>
+                  <span class="service-name">Adoration</span>
+                  <span class="service-time">10:00 &ndash; 11:00am</span>
+                </div>
+                <div class="service-row">
+                  <span class="service-day">Fri &ndash; Sun</span>
+                  <span class="service-name">Adoration</span>
+                  <span class="service-time">6:30 &ndash; 7:30pm</span>
+                </div>
+              </div>
+            </div>
+            <div class="church-card">
+              <div class="church-card-header">
+                <div class="church-card-title">St. Patrick's Church, Ballysteen</div>
+              </div>
+              <div class="church-card-body" style="padding:0;">
+                <div class="service-row">
+                  <span class="service-day">Tuesday</span>
+                  <span class="service-name">Adoration</span>
+                  <span class="service-time">7:00 &ndash; 8:00pm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SPECIAL SERVICES & GROUPS ──────────────────────── -->
+        <div style="margin-top: 3.5rem;">
+          <div class="section-subtitle">Groups &amp; Special Services</div>
+          <h2 class="section-title" style="margin-bottom: 1rem;">Parish Groups &amp; Devotions</h2>
+          <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+
+          <div class="church-card" style="max-width: 800px; margin-top: 1.5rem;">
+            <div class="church-card-body" style="padding:0;">
+              <table class="special-table" aria-label="Parish groups and special services">
+                <thead>
+                  <tr>
+                    <th>Event</th>
+                    <th>When</th>
+                    <th>Time &amp; Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Alliance of the Two Hearts</td>
+                    <td>1st Friday of the month</td>
+                    <td>9:00pm</td>
+                  </tr>
+                  <tr>
+                    <td>St. Joseph's Prayer Group</td>
+                    <td>1st Wednesday of the month</td>
+                    <td>8:00pm &mdash; Meeting Room</td>
+                  </tr>
+                  <tr>
+                    <td>Healing Mass of Padre Pio</td>
+                    <td>2nd Friday of the month</td>
+                    <td>7:30pm</td>
+                  </tr>
+                  <tr>
+                    <td>Youth Evening Monthly Holy Hour</td>
+                    <td>3rd Sunday of the month</td>
+                    <td>6:30 &ndash; 7:30pm</td>
+                  </tr>
+                  <tr>
+                    <td>Family &amp; Life Evening Monthly Mass</td>
+                    <td>4th Friday of the month</td>
+                    <td>7:30pm</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── HOLY DAYS OF OBLIGATION ──────────────────────────── -->
+        <div style="margin-top: 3.5rem;">
+          <div class="section-subtitle">Calendar</div>
+          <h2 class="section-title" style="margin-bottom: 1rem;">Holy Days of Obligation</h2>
+          <div class="ornament"><span class="ornament-cross">&#10015;</span></div>
+          <p style="max-width: 640px; margin-bottom: 1.5rem; color: var(--text-mid);">
+            Catholics in Ireland are obliged to attend Mass on the following days. Special Mass times are announced in advance.
+          </p>
+          <div style="max-width: 560px; background: var(--white); border-radius: 8px; box-shadow: var(--shadow-soft); padding: 0 1rem;">
+            <div class="holy-day-row">
+              <span class="holy-day-date">1 January</span>
+              <span class="holy-day-name">Solemnity of Mary, Mother of God</span>
+            </div>
+            <div class="holy-day-row">
+              <span class="holy-day-date">17 March</span>
+              <span class="holy-day-name">St Patrick, Patron of Ireland</span>
+            </div>
+            <div class="holy-day-row">
+              <span class="holy-day-date">15 August</span>
+              <span class="holy-day-name">The Assumption of the Blessed Virgin Mary</span>
+            </div>
+            <div class="holy-day-row">
+              <span class="holy-day-date">1 November</span>
+              <span class="holy-day-name">All Saints</span>
+            </div>
+            <div class="holy-day-row">
+              <span class="holy-day-date">8 December</span>
+              <span class="holy-day-name">The Immaculate Conception</span>
+            </div>
+            <div class="holy-day-row">
+              <span class="holy-day-date">25 December</span>
+              <span class="holy-day-name">The Nativity of Our Lord (Christmas)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── PARISH NEWSLETTER ─────────────────────────────────── -->
+        <div style="margin-top: 3rem; background: var(--parchment); border-radius: 10px; padding: 2rem; max-width: 660px;">
+          <div class="section-subtitle">Newsletter</div>
+          <h3 style="font-family:var(--ff-display); font-size:1.2rem; color:var(--navy); margin-bottom:0.75rem;">Parish Newsletter Notices</h3>
+          <p style="color: var(--text-mid); font-size:0.97rem;">
+            To include a notice in the parish newsletter, email
+            <a href="mailto:easbaile@gmail.com">easbaile@gmail.com</a>.<br>
+            <strong>Deadline: Wednesdays at 11:00am.</strong>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="site-footer-placeholder"></div>
+  <script src="nav.js"></script>
+  <script type="module" src="admin-core.js"></script>
+</body>
+</html>
