@@ -15,7 +15,6 @@ const firebaseConfig = {
   messagingSenderId: "155232908107",
   appId: "1:155232908107:web:356342d57a54c4ebd0aece"
 };
-};
 
 // ══════════════════════════════════════════════════════════════════
 //  INITIALISE FIREBASE (once, guard against double-load)
